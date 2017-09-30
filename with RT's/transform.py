@@ -37,16 +37,33 @@ with open('freq_young.csv', 'w', encoding = 'utf-8') as y:
           with open('freq_all.csv', 'w', encoding = 'utf-8') as all:
                arr_young = []
                arr_young_sorted = []
+               time_younger = []
+               time_younger_st = []
                for line in younger_database[1:]:
                     line = line.split('\t')
                     s = line[4::4]
                     number_of_younger = len(s)
                     dictionary = {}
-                    for el in s:
+                    t = line[5::4]
+                    t_st = line[6::4]
+                    t_total = 0
+                    t_total_abs = 0
+                    for i, el in enumerate(s):
                          if el in dictionary:
                               dictionary[el] += 1
                          elif el:
                               dictionary[el] = 1
+                         try:
+                         	t_total += int(t[i])
+                         	try:
+                         		t_st[i] = int(t_st[i])
+                         	except:
+                         		t_st[i] = 0
+                         	t_total_abs += (int(t[i]) - int(t_st[i]))
+                         except:
+                         	continue
+                    time_younger.append(t_total)
+                    time_younger_st.append(t_total_abs)
                     sorted_dictionary = sorted(dictionary.items(), key=operator.itemgetter(1), reverse = True)
                     arr_young.append(dictionary)
                     arr_young_sorted.append(sorted_dictionary)                    
@@ -67,16 +84,33 @@ with open('freq_young.csv', 'w', encoding = 'utf-8') as y:
                
                arr_old = []
                arr_old_sorted = []
+               time_older = []
+               time_older_st = []
                for line in older_database[1:]:
                     line = line.split('\t')
                     s = line[4::4]
                     number_of_older = len(s)
                     dictionary = {}
-                    for el in s:
+                    t = line[5::4]
+                    t_st = line[6::4]
+                    t_total = 0
+                    t_total_abs = 0
+                    for i, el in enumerate(s):
                          if el in dictionary:
                               dictionary[el] += 1
                          elif el:
                               dictionary[el] = 1
+                         try:
+                         	t_total += int(t[i])
+                         	try:
+                         		t_st[i] = int(t_st[i])
+                         	except:
+                         		t_st[i] = 0
+                         	t_total_abs += (int(t[i]) - int(t_st[i]))
+                         except:
+                         	continue
+                    time_older.append(t_total)
+                    time_older_st.append(t_total_abs)
                     sorted_dictionary = sorted(dictionary.items(), key=operator.itemgetter(1), reverse = True)
                     arr_old.append(dictionary)
                     arr_old_sorted.append(sorted_dictionary)
@@ -98,6 +132,8 @@ with open('freq_young.csv', 'w', encoding = 'utf-8') as y:
                
                arr_all = []
                arr_all_sorted = []
+               time = [time_younger[i] + time_older[i] for i in range(len(time_younger))]
+               time_st = [time_younger_st[i] + time_older_st[i] for i in range(len(time_younger))]
                for i, sent in enumerate(arr_young):
                     all_dict = sent
                     for el in arr_old[i]:
@@ -132,7 +168,7 @@ m = Mystem()
 with open('freq_all.csv', 'r', encoding = 'utf-8') as f:
 	table = f.read().split('\n')
 
-table_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables\n'
+table_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables	ART	ART\'\n'
 
 for z, line in enumerate(table[:-1]):
 	number = line.split('\t')[0]
@@ -174,9 +210,12 @@ for z, line in enumerate(table[:-1]):
 	for i in max_kk:
 		if i in vow:
 			j += 1
+	
+	art = time[z] / S
+	art_abs = time_st[z] / S
 
 
-	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\n' % (number, stimuli[z], max_kk, S, int(total_number-S), len(values), all_answers[z], int(values[max_kk])*100/S, H, ipm, j)
+	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(total_number-S), len(values), all_answers[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
 	table_out += out_line
 	max_k = 0
 	max_k_k = 0
@@ -187,7 +226,7 @@ with open('freq_table.csv', 'w', encoding='utf-8') as f:
 with open('freq_young.csv', 'r', encoding = 'utf-8') as f:
 	table_young = f.read().split('\n')
 
-table_young_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables\n'
+table_young_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables	ART	ART\'\n'
 
 for z, line in enumerate(table_young[:-1]):
 	number = line.split('\t')[0]
@@ -229,9 +268,11 @@ for z, line in enumerate(table_young[:-1]):
 	for i in max_kk:
 		if i in vow:
 			j += 1
+	
+	art = time_younger[z] / S
+	art_abs = time_younger_st[z] / S
 
-
-	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\n' % (number, stimuli[z], max_kk, S, int(number_of_younger-S), len(values), all_answers_young[z], int(values[max_kk])*100/S, H, ipm, j)
+	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(number_of_younger-S), len(values), all_answers_young[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
 	table_young_out += out_line
 	max_k = 0
 	max_k_k = 0
@@ -242,7 +283,7 @@ with open('freq_table_young.csv', 'w', encoding='utf-8') as f:
 with open('freq_old.csv', 'r', encoding = 'utf-8') as f:
 	table_old = f.read().split('\n')
 
-table_old_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables\n'
+table_old_out = '№	Context	Dominant response	Number of completions	Ommitted completions or no completion	Number of unique responses	Alternative completions	Percentage of ending agreement %EA	H-statistic	Frequency (ipm)	Number of syllables	ART	ART\'\n'
 
 for z, line in enumerate(table_old[:-1]):
 	number = line.split('\t')[0]
@@ -284,9 +325,12 @@ for z, line in enumerate(table_old[:-1]):
 	for i in max_kk:
 		if i in vow:
 			j += 1
+	
+	art = time_older[z] / S
+	art_abs = time_older_st[z] / S
 
 
-	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\n' % (number, stimuli[z], max_kk, S, int(number_of_older-S), len(values), all_answers_old[z], int(values[max_kk])*100/S, H, ipm, j)
+	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(number_of_older-S), len(values), all_answers_old[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
 	table_old_out += out_line
 	max_k = 0
 	max_k_k = 0
