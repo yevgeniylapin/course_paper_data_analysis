@@ -44,6 +44,7 @@ def create_time_info_table(db, name):
 				continue
 		
 		n = len(times)
+		print(n)
 		art.append(times_sum/n)
 		min_rt.append(min(times))
 		max_rt.append(max(times))

@@ -214,7 +214,6 @@ for z, line in enumerate(table[:-1]):
 	art = time[z] / S
 	art_abs = time_st[z] / S
 
-
 	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(total_number-S), len(values), all_answers[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
 	table_out += out_line
 	max_k = 0
@@ -271,6 +270,7 @@ for z, line in enumerate(table_young[:-1]):
 	
 	art = time_younger[z] / S
 	art_abs = time_younger_st[z] / S
+	print(S)
 
 	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(number_of_younger-S), len(values), all_answers_young[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
 	table_young_out += out_line
@@ -328,6 +328,7 @@ for z, line in enumerate(table_old[:-1]):
 	
 	art = time_older[z] / S
 	art_abs = time_older_st[z] / S
+	print(S)
 
 
 	out_line = '%s\t%s\t%s\t%s\t%d\t%d\t%s\t%f\t%f\t%s\t%d\t%f\t%f\n' % (number, stimuli[z], max_kk, S, int(number_of_older-S), len(values), all_answers_old[z], int(values[max_kk])*100/S, H, ipm, j, art, art_abs)
