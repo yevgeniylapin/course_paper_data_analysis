@@ -7,11 +7,11 @@ this repository is for term paper data
 
 
 
-25_easy_25_difficult — transform2.py на основе younger_august.csv и older_august.csv считает время реакции для каждого из испытуемых на 25 самых сложных и самых простых предложениях 
-Inter-rater_reliability — 
-reaction_time — 
-statistical_tests — 
-summary tables with RT's — 
+25_easy_25_difficult — transform2.py на основе younger_august.csv и older_august.csv считает время реакции для каждого из испытуемых на 25 самых сложных и самых простых предложениях <br/>
+Inter-rater_reliability — Inter-rater reliability.xlsx — документ с данными по разметке контрольных образцов между разными ассесорами<br/>
+reaction_time — Reaction_time.py подсчитывает на основе younger_august.csv и older_august.csv время реакции для каждого предложения в разных выборках<br/>
+statistical_tests — считают статистические тесты<br/>
+summary tables with RT's — то же, что и в корневой папке<br/>
 
 
 final_analysis_october.xlsx	— итоговая таблица со всеми результатами и таблицами, переведенными в формат Excel<br/>
