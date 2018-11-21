@@ -14,7 +14,7 @@ freq_young.csv — различные варианты заканчивания
 freqrnc2011.csv	 — частотный словарь Шарова и Ляшевской<br/>
 new_data_october_clean_for_analysis.xlsx — исходные очищенные данные. эти данные копируются в older_august и younger_august соответственно<br/>
 older_august.csv	— вкладка older из new_data_october_clean_for_analysis.xlsx<br/>
-raw_data_from_interns.xlsx	<br/>
+raw_data_from_interns.xlsx	— грязные данные после разметки практикантами, на основе этого файла создаётся new_data_october_clean_for_analysis.xlsx<br/>
 stimuli.txt — список контекстов<br/>
 transform.py	— код, который создаёт freq_ таблицы на основе older_august.csv и younger_august.csv<br/>
 younger_august.csv — вкладка younger из new_data_october_clean_for_analysis.xlsx<br/>
