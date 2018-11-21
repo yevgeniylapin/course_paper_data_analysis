@@ -4,6 +4,16 @@ this repository is for term paper data
 
 В корневой папке находятся следующие документы:
 
+
+
+
+25_easy_25_difficult — transform2.py на основе younger_august.csv и older_august.csv считает время реакции для каждого из испытуемых на 25 самых сложных и самых простых предложениях 
+Inter-rater_reliability — 
+reaction_time — 
+statistical_tests — 
+summary tables with RT's — 
+
+
 final_analysis_october.xlsx	— итоговая таблица со всеми результатами и таблицами, переведенными в формат Excel<br/>
 freq_all.csv	— различные варианты заканчивания для обеих групп без контекстов<br/>
 freq_old.csv	— различные варианты заканчивания для пожилой группы без контакстов<br/>
